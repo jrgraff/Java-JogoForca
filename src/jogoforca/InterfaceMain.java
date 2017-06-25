@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package jogoforca;
+
 /**
  *
  * @author jgrasis
@@ -26,26 +27,92 @@ public class InterfaceMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtPalavra = new javax.swing.JTextField();
+        txtPalavraDica = new javax.swing.JTextField();
+        buttonPalavraCadastrar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txtPalavraCategoria = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 369, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Jogo da Forca - Menu");
+        setMaximumSize(new java.awt.Dimension(800, 480));
+        setMinimumSize(new java.awt.Dimension(800, 480));
+        setName("interfaceMain"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(800, 480));
+        getContentPane().setLayout(null);
+
+        jLabel6.setFont(new java.awt.Font("Courier 10 Pitch", 0, 13)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("Palavra:");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(546, 235, 80, 17);
+
+        jLabel7.setFont(new java.awt.Font("Courier 10 Pitch", 0, 13)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("Dica:");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(556, 280, 70, 17);
+        getContentPane().add(txtPalavra);
+        txtPalavra.setBounds(638, 230, 150, 27);
+        getContentPane().add(txtPalavraDica);
+        txtPalavraDica.setBounds(638, 275, 150, 27);
+
+        buttonPalavraCadastrar.setFont(new java.awt.Font("Courier 10 Pitch", 0, 13)); // NOI18N
+        buttonPalavraCadastrar.setText("Cadastrar");
+        buttonPalavraCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPalavraCadastrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buttonPalavraCadastrar);
+        buttonPalavraCadastrar.setBounds(640, 310, 90, 31);
+
+        jLabel8.setFont(new java.awt.Font("Courier 10 Pitch", 0, 13)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel8.setText("Categoria:");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(526, 185, 100, 17);
+        getContentPane().add(txtPalavraCategoria);
+        txtPalavraCategoria.setBounds(638, 180, 150, 27);
+
+        jLabel1.setFont(new java.awt.Font("Courier 10 Pitch", 1, 16)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("Adicionar Palavras");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(566, 154, 200, 20);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jogoforca/img/bg.jpg"))); // NOI18N
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(0, 0, 800, 480);
+
+        getAccessibleContext().setAccessibleDescription("");
+        getAccessibleContext().setAccessibleParent(this);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonPalavraCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPalavraCadastrarActionPerformed
+        Palavras p = new Palavras();
+        p.AdicionarPalavra(txtPalavraCategoria.getText(), txtPalavra.getText(), txtPalavraDica.getText());
+    }//GEN-LAST:event_buttonPalavraCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonPalavraCadastrar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JTextField txtPalavra;
+    private javax.swing.JTextField txtPalavraCategoria;
+    private javax.swing.JTextField txtPalavraDica;
     // End of variables declaration//GEN-END:variables
 }
