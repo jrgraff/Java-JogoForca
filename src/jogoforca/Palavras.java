@@ -52,4 +52,19 @@ public class Palavras {
             System.out.println(e);
         }
     }
+    
+    public String GetParteBranca(String palavra)
+    {
+        String parteBranca = "";
+        String[] parts = palavra.split(" ");
+        
+        for(int i = 0; i<parts.length; i++){
+            for(int j = 0; j<parts[i].length(); j++){
+                parteBranca += "_ ";
+            }
+            parteBranca += " ";
+        }
+        
+        return parteBranca;
+    }
 }

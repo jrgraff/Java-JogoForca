@@ -28,6 +28,7 @@ public class InterfaceJogo extends javax.swing.JFrame {
 
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jogoforca/img/bg.gif"))); // NOI18N
@@ -38,6 +39,13 @@ public class InterfaceJogo extends javax.swing.JFrame {
         getContentPane().setLayout(null);
         getContentPane().add(jLabel6);
         jLabel6.setBounds(100, 120, 0, 0);
+
+        jLabel2.setFont(new java.awt.Font("Norasi", 1, 28)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("_ _ _   _ _ _ _ _ _   _ _ _ _");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(0, 250, 420, 80);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jogoforca/img/bg.gif"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -52,6 +60,7 @@ public class InterfaceJogo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables

@@ -28,7 +28,6 @@ public class Ranking {
             return("" + classificacao + ". ");
         }
     }
-    
     public void ResetRanking()
     {
         try{          
