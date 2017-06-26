@@ -34,13 +34,14 @@ public class Palavras {
         
         return palavra;
     }
+    
     public void AdicionarPalavra(String categoria, String palavra, String dica)
     {
         try{          
             FileWriter arquivo = new FileWriter("src/jogoforca/dicionario/" + categoria, true);
             BufferedWriter fileIn = new BufferedWriter(arquivo);
             
-            fileIn.write(palavra + " ");
+            fileIn.write(palavra + ":");
             fileIn.write(dica);
             fileIn.newLine();
             
