@@ -5,8 +5,6 @@
  */
 package jogoforca;
 
-import java.awt.event.WindowEvent;
-
 /**
  *
  * @author jgrasis
@@ -256,8 +254,25 @@ public class InterfaceMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPalavraCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPalavraCadastrarActionPerformed
+        InterfacePopUp popup = new InterfacePopUp();
         Palavras p = new Palavras();
-        p.AdicionarPalavra(txtPalavraCategoria.getText(), txtPalavra.getText(), txtPalavraDica.getText());
+        String mensagem;
+        String titulo;
+        if(!txtPalavraCategoria.getText().isEmpty() && !txtPalavra.getText().isEmpty() && !txtPalavraDica.getText().isEmpty()){
+            p.AdicionarPalavra(txtPalavraCategoria.getText(), txtPalavra.getText(), txtPalavraDica.getText());
+            this.txtPalavraCategoria.setText("");
+            this.txtPalavra.setText("");
+            this.txtPalavraDica.setText("");
+            
+            mensagem = "Palavra Adicionada";
+            titulo = "Sucesso";
+        } else{
+            titulo = "Erro";
+            mensagem = "Verifique se todas as caixas estão preenchidas corretamente";
+        }
+        popup.setLabelText(mensagem);
+        popup.setTitleText(titulo);
+        popup.show();
     }//GEN-LAST:event_buttonPalavraCadastrarActionPerformed
 
     private void buttonPalavraCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPalavraCadastrar1ActionPerformed

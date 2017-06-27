@@ -14,7 +14,7 @@ public class Palavras {
         try{
             Random rand = new Random();
             
-            FileReader arquivo = new FileReader("src/jogoforca/dicionario/" + categoria);
+            FileReader arquivo = new FileReader("src/jogoforca/dicionario/" + categoria.toUpperCase());
             BufferedReader fileIn = new BufferedReader(arquivo);
             
             ArrayList<String> palavras = new ArrayList<>();
@@ -38,11 +38,11 @@ public class Palavras {
     public void AdicionarPalavra(String categoria, String palavra, String dica)
     {
         try{          
-            FileWriter arquivo = new FileWriter("src/jogoforca/dicionario/" + categoria, true);
+            FileWriter arquivo = new FileWriter("src/jogoforca/dicionario/" + categoria.toUpperCase(), true);
             BufferedWriter fileIn = new BufferedWriter(arquivo);
             
-            fileIn.write(palavra + ":");
-            fileIn.write(dica);
+            fileIn.write(palavra.toUpperCase() + ":");
+            fileIn.write(dica.toUpperCase());
             fileIn.newLine();
             
             fileIn.close();
@@ -56,13 +56,13 @@ public class Palavras {
     public String GetParteBranca(String palavra)
     {
         String parteBranca = "";
-        String[] parts = palavra.split(" ");
         
-        for(int i = 0; i<parts.length; i++){
-            for(int j = 0; j<parts[i].length(); j++){
-                parteBranca += "_ ";
+        for(int i = 0; i<palavra.length(); i++){
+            if(palavra.charAt(i) == ' '){
+                parteBranca += " ";
+            } else{
+                parteBranca += "-";
             }
-            parteBranca += " ";
         }
         
         return parteBranca;
