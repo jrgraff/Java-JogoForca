@@ -2,19 +2,26 @@ package jogoforca;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Palavras {
-    public String SortearPalavra(String categoria)
+    public String sortearPalavra(String categoria)
     {
+        Random rand = new Random();
         String palavra = "";
+        String local = "src/jogoforca/dicionario/" + categoria.toUpperCase();
+        
+        if(categoria.toUpperCase().contains("GERAL")){
+            File folder = new File("src/jogoforca/dicionario/");
+            File[] listOfFiles = folder.listFiles();
+            local = listOfFiles[rand.nextInt(listOfFiles.length)].toString();
+        }
         try{
-            Random rand = new Random();
-            
-            FileReader arquivo = new FileReader("src/jogoforca/dicionario/" + categoria.toUpperCase());
+            FileReader arquivo = new FileReader(local);
             BufferedReader fileIn = new BufferedReader(arquivo);
             
             ArrayList<String> palavras = new ArrayList<>();
@@ -31,11 +38,10 @@ public class Palavras {
         catch(Exception e){
             System.out.println(e);
         }
-        
         return palavra;
     }
     
-    public void AdicionarPalavra(String categoria, String palavra, String dica)
+    public void adicionarPalavra(String categoria, String palavra, String dica)
     {
         try{          
             FileWriter arquivo = new FileWriter("src/jogoforca/dicionario/" + categoria.toUpperCase(), true);
@@ -53,7 +59,7 @@ public class Palavras {
         }
     }
     
-    public String GetParteBranca(String palavra)
+    public String getParteBranca(String palavra)
     {
         String parteBranca = "";
         

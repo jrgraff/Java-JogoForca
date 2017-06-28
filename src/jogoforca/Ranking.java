@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class Ranking {
-    public String GetRanking(int classificacao)
+    public String getRanking(int classificacao)
     {
         try{
             FileReader arquivo = new FileReader("src/jogoforca/ranking");
@@ -28,7 +28,7 @@ public class Ranking {
             return("" + classificacao + ". ");
         }
     }
-    public void ResetRanking()
+    public void resetRanking()
     {
         try{          
             FileWriter arquivo = new FileWriter("src/jogoforca/ranking");
