@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Palavras {
@@ -59,18 +60,46 @@ public class Palavras {
         }
     }
     
-    public String getParteBranca(String palavra)
+    public String getPalavraOculta(String palavra)
     {
-        String parteBranca = "";
+        String palavraOculta = "";
         
         for(int i = 0; i<palavra.length(); i++){
             if(palavra.charAt(i) == ' '){
-                parteBranca += " ";
+                palavraOculta += " ";
             } else{
-                parteBranca += "-";
+                palavraOculta += "-";
             }
         }
         
-        return parteBranca;
+        return palavraOculta;
+    }
+    
+    public void atualizaPalavraOculta(Jogo j, char letra)
+    {
+        String palavraOculta = "";
+        char[] cP = j.getPalavra().toCharArray();
+        char[] cO = j.getPalavraOculta().toCharArray();
+        
+        for(int i = 0; i < j.getPalavra().length(); i++){
+            if(cP[i] == letra){
+                cO[i] = letra;
+            }
+        }
+        
+        for(int i = 0; i < j.getPalavra().length(); i++){
+            palavraOculta += cO[i];
+        }
+        
+        j.setPalavraOculta(palavraOculta);
+    }
+    
+    public Boolean contemEmPalavra(String letra, String palavra)
+    {
+        if(palavra.contains(letra)){
+            return true;
+        } else{
+            return false;
+        }
     }
 }

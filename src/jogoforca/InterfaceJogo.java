@@ -1,9 +1,27 @@
 package jogoforca;
 
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+
 public class InterfaceJogo extends javax.swing.JFrame {
 
-    public InterfaceJogo() {
+    private final Jogo jogo;
+    private final Palavras palavra;
+    
+    public InterfaceJogo(Jogo j, Palavras p) {
+        this.jogo = j;
+        this.palavra = p;
+        jogo.setPalavraOculta(palavra.getPalavraOculta(jogo.getPalavra()));
+        
         initComponents();
+        
+        this.txtJogoPalavra.setText(jogo.getPalavraOculta());
+        this.txtJogoDica.setText(j.getDica());
+    }
+    
+    public String getTxtJogoPalavra()
+    {
+        return this.txtJogoPalavra.getText();
     }
     
     public void setTxtJogoDica(String dica)
@@ -23,7 +41,7 @@ public class InterfaceJogo extends javax.swing.JFrame {
     
     public void setVida(int vidas)
     {
-    
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -51,13 +69,16 @@ public class InterfaceJogo extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jogoforca/img/bg.gif"))); // NOI18N
 
         setTitle("Jogo da Forca - Jogo");
+        setAutoRequestFocus(false);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximumSize(null);
+        setMinimumSize(null);
         setPreferredSize(new java.awt.Dimension(423, 389));
-        setResizable(false);
         getContentPane().setLayout(null);
         getContentPane().add(jLabel6);
         jLabel6.setBounds(100, 120, 0, 0);
 
-        txtJogoPalavra.setFont(new java.awt.Font("Purisa", 1, 20)); // NOI18N
+        txtJogoPalavra.setFont(new java.awt.Font("Purisa", 1, 24)); // NOI18N
         txtJogoPalavra.setForeground(new java.awt.Color(254, 254, 254));
         txtJogoPalavra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtJogoPalavra.setText("-- -----");
@@ -110,7 +131,7 @@ public class InterfaceJogo extends javax.swing.JFrame {
         getContentPane().add(inputJogoLetra);
         inputJogoLetra.setBounds(280, 350, 50, 30);
 
-        txtJogoErros.setFont(new java.awt.Font("Purisa", 1, 12)); // NOI18N
+        txtJogoErros.setFont(new java.awt.Font("Purisa", 1, 16)); // NOI18N
         txtJogoErros.setForeground(new java.awt.Color(244, 244, 244));
         txtJogoErros.setText(":");
         getContentPane().add(txtJogoErros);
@@ -119,7 +140,7 @@ public class InterfaceJogo extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Purisa", 1, 12)); // NOI18N
         jLabel13.setText("Dica:");
         getContentPane().add(jLabel13);
-        jLabel13.setBounds(10, 350, 34, 30);
+        jLabel13.setBounds(10, 350, 28, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jogoforca/img/bg.gif"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -134,7 +155,24 @@ public class InterfaceJogo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVerificarActionPerformed
-        // TODO add your handling code here:
+        if(palavra.contemEmPalavra(this.inputJogoLetra.getText().toUpperCase(), jogo.getPalavra())){
+            palavra.atualizaPalavraOculta(jogo, this.inputJogoLetra.getText().toUpperCase().charAt(0));
+            this.txtJogoPalavra.setText(jogo.getPalavraOculta());
+            this.inputJogoLetra.setText("");
+            if(jogo.getPalavraOculta().equals(jogo.getPalavra())){
+                JOptionPane.showMessageDialog(null, "Weee! Voce ganhou :)\nSua pontuação foi: ", "Vitória", WIDTH);
+                this.setVisible(false);
+            }
+        } else{
+            this.txtJogoErros.setText(this.txtJogoErros.getText() + this.inputJogoLetra.getText().toUpperCase() + "-");
+            this.inputJogoLetra.setText("");
+            jogo.setVida(jogo.getVida()-1);
+            if(jogo.getVida() <= 0){
+                JOptionPane.showMessageDialog(null, "Oh! Voce perdeu :(\nA palavra era " + jogo.getPalavra(), "Derrota", WIDTH);
+                this.setVisible(false);
+            }
+        }
+        
     }//GEN-LAST:event_buttonVerificarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

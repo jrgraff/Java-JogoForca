@@ -1,9 +1,14 @@
 package jogoforca;
 
-public class InterfaceMain extends javax.swing.JFrame {
+import javax.swing.*;
 
+public class InterfaceMain extends javax.swing.JFrame {
+    private Jogo jogo;
+    private Palavras palavra;
+    
     public InterfaceMain() {
         initComponents();
+        palavra = new Palavras();
     }
 
     @SuppressWarnings("unchecked")
@@ -235,17 +240,44 @@ public class InterfaceMain extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    public static void main(String args[])
+    {
+        // <editor-fold defaultstate="collapsed" desc="Generated Main">
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(InterfaceMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(InterfaceMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(InterfaceMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(InterfaceMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new InterfaceMain().setVisible(true);
+            }
+        });
+    }
 
     private void buttonPalavraCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPalavraCadastrarActionPerformed
-        InterfacePopUp popup = new InterfacePopUp();
-        Palavras p = new Palavras();
         String mensagem;
         String titulo;
         if(!inputPalavraCategoria.getText().isEmpty() && !inputPalavra.getText().isEmpty() && !inputPalavraDica.getText().isEmpty()){
-            p.adicionarPalavra(inputPalavraCategoria.getText(), inputPalavra.getText(), inputPalavraDica.getText());
+            palavra.adicionarPalavra(inputPalavraCategoria.getText(), inputPalavra.getText(), inputPalavraDica.getText());
             this.inputPalavraCategoria.setText("");
             this.inputPalavra.setText("");
             this.inputPalavraDica.setText("");
+            
             
             mensagem = "Palavra Adicionada";
             titulo = "Sucesso";
@@ -253,14 +285,14 @@ public class InterfaceMain extends javax.swing.JFrame {
             titulo = "Erro";
             mensagem = "Verifique se todas as caixas estão preenchidas corretamente";
         }
-        popup.setLabelText(mensagem);
-        popup.setTitleText(titulo);
-        popup.show();
+        JOptionPane.showMessageDialog(null, mensagem, titulo, WIDTH);
     }//GEN-LAST:event_buttonPalavraCadastrarActionPerformed
 
     private void buttonPalavraCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPalavraCadastrar1ActionPerformed
-        InterfaceJogo j = new InterfaceJogo();
-        j.show();
+        jogo = new Jogo(this.inputMainJogador.getText(), this.inputMainCategoria.getText(), this.jComboBox2.getSelectedIndex());    
+        
+        InterfaceJogo iJogo = new InterfaceJogo(jogo, palavra);
+        iJogo.setVisible(true);
     }//GEN-LAST:event_buttonPalavraCadastrar1ActionPerformed
 
     private void txtMainAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMainAtualizarMouseClicked
