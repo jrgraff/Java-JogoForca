@@ -4,42 +4,65 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Ranking {
+   
     public String getRanking(int classificacao)
     {
         try{
-            FileReader arquivo = new FileReader("src/jogoforca/ranking");
-            BufferedReader fileIn = new BufferedReader(arquivo);
-            
+            FileReader arquivoR = new FileReader("src/jogoforca/ranking");
+            BufferedReader fileR = new BufferedReader(arquivoR);
+     
             ArrayList<String> ranking = new ArrayList<>();
             String linha;
             
-            while((linha = fileIn.readLine()) != null){
+            while((linha = fileR.readLine()) != null){
                 if(linha.length() > 0){
                     ranking.add(linha);
                 }
             }
-            fileIn.close();
+            fileR.close();
             return(classificacao + ". " + ranking.get(classificacao - 1));
-        }
-        catch(Exception e){
-            return("" + classificacao + ". ");
+        } catch(Exception e){
+            return("null");
         }
     }
-    public void resetRanking()
+    public void resetRanking() throws IOException
     {
-        try{          
-            FileWriter arquivo = new FileWriter("src/jogoforca/ranking");
-            BufferedWriter fileIn = new BufferedWriter(arquivo);
+        FileWriter arquivoW = new FileWriter("src/jogoforca/ranking");
+        BufferedWriter fileW = new BufferedWriter(arquivoW);
             
-            fileIn.write("");
-            fileIn.close();
-            
+        fileW.write("");
+    }
+
+    public void atualizaRanking(Jogo j) throws IOException{          
+        FileWriter arquivoW = new FileWriter("src/jogoforca/ranking", true);
+        BufferedWriter fileW = new BufferedWriter(arquivoW);
+        
+        Jogo jogo = j;
+        String[] parts;
+        ArrayList<String> ranking = new ArrayList<>();
+        int aux, i;
+        
+        for(i = 1; i < 6; i++){
+            ranking.add(getRanking(i));
         }
-        catch(Exception e){
-            System.out.println(e);
+        
+        i = 0;
+        for(String s : ranking){
+            if(ranking.get(i) != "null"){
+                parts = ranking.get(i).split(": ");
+                if(Integer.parseInt(parts[1]) < j.getPontuacao()){
+                
+                }
+            } else{
+                
+                break;
+            }
         }
+        
+        System.out.print(ranking);
     }
 }

@@ -1,15 +1,16 @@
 package jogoforca;
 
+import static java.awt.image.ImageObserver.WIDTH;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
-public class Palavras {
+public class Palavra {
     public String sortearPalavra(String categoria)
     {
         Random rand = new Random();
@@ -37,7 +38,7 @@ public class Palavras {
             fileIn.close();
         }
         catch(Exception e){
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Categoria inexistente", "Erro", WIDTH);
         }
         return palavra;
     }

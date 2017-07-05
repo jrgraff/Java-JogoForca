@@ -1,7 +1,7 @@
 package jogoforca;
 
 public class Jogo {
-    private String jogador;
+    private Jogador jogador;
     private String palavra;
     private String categoria;
     private String dica;
@@ -9,13 +9,14 @@ public class Jogo {
     private int nivel;
     private int vida = 9;
     
-    public Jogo(String jogador, String categoria, int nivel)
+    public Jogo(Jogador j, String categoria, int nivel)
     {
-        Palavras p = new Palavras();
+        Palavra p = new Palavra();
         String[] parts = p.sortearPalavra(categoria).split(":");
         
-        this.jogador = jogador;
+        this.jogador = j;
         this.palavra = parts[0];
+        this.palavraOculta = p.getPalavraOculta(this.palavra);
         this.dica = parts[1] + "(" + categoria + ")";
         this.vida -= nivel;
         this.nivel = nivel;
@@ -30,11 +31,11 @@ public class Jogo {
     }
     
     public String getJogador() {
-        return jogador;
+        return jogador.getNome();
     }
 
     public void setJogador(String jogador) {
-        this.jogador = jogador;
+        this.jogador.setNome(jogador);
     }
 
     public String getPalavra() {
@@ -75,5 +76,14 @@ public class Jogo {
 
     public void setVida(int vida) {
         this.vida = vida;
+    }
+
+    public int getPontuacao() {
+        return jogador.getPontuacao();
+    }
+    
+    public void setPontuacao()
+    {
+        jogador.setPontuacao((nivel * vida) + palavra.length());
     }
 }

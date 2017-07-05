@@ -1,14 +1,20 @@
 package jogoforca;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class InterfaceMain extends javax.swing.JFrame {
     private Jogo jogo;
-    private Palavras palavra;
+    private Palavra palavra;
+    private Jogador jogador;
     
     public InterfaceMain() {
         initComponents();
-        palavra = new Palavras();
+        palavra = new Palavra();
     }
 
     @SuppressWarnings("unchecked")
@@ -47,7 +53,7 @@ public class InterfaceMain extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(800, 480));
         setModalExclusionType(null);
         setName("interfaceMain"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(800, 480));
+        setPreferredSize(new java.awt.Dimension(800, 481));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -289,19 +295,37 @@ public class InterfaceMain extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonPalavraCadastrarActionPerformed
 
     private void buttonPalavraCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPalavraCadastrar1ActionPerformed
-        jogo = new Jogo(this.inputMainJogador.getText(), this.inputMainCategoria.getText(), this.jComboBox2.getSelectedIndex());    
-        
-        InterfaceJogo iJogo = new InterfaceJogo(jogo, palavra);
-        iJogo.setVisible(true);
+        if(this.inputMainJogador.getText().length() > 0){
+            try {
+                jogador = new Jogador(this.inputMainJogador.getText());
+                jogo = new Jogo(jogador, this.inputMainCategoria.getText(), this.jComboBox2.getSelectedIndex()+1);
+                
+                InterfaceJogo iJogo = new InterfaceJogo(jogo, palavra);
+                iJogo.setVisible(true);
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "Um erro aconteceu", "Erro", WIDTH);
+                System.out.println(ex);
+            }
+        } else
+            JOptionPane.showMessageDialog(null, "Digite um nome para o jogador", "Erro", WIDTH);
     }//GEN-LAST:event_buttonPalavraCadastrar1ActionPerformed
 
     private void txtMainAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMainAtualizarMouseClicked
         Ranking r = new Ranking();
-        txtRanking1.setText(r.getRanking(1) + " pts");
-        txtRanking2.setText(r.getRanking(2) + " pts");
-        txtRanking3.setText(r.getRanking(3) + " pts");
-        txtRanking4.setText(r.getRanking(4) + " pts");
-        txtRanking5.setText(r.getRanking(5) + " pts");
+        ArrayList<JLabel> txtRanking = new ArrayList<>();
+        txtRanking.add(this.txtRanking1);
+        txtRanking.add(this.txtRanking2);
+        txtRanking.add(this.txtRanking3);
+        txtRanking.add(this.txtRanking4);
+        txtRanking.add(this.txtRanking5);
+        
+        for(int i = 1; i<6; i++){
+            if(!r.getRanking(i).contains("null")){
+                txtRanking.get(i-1).setText(r.getRanking(i) + " pts\n");
+                txtRanking.get(i-1).setVisible(true);
+            }else
+                txtRanking.get(i-1).setVisible(false);
+        }
     }//GEN-LAST:event_txtMainAtualizarMouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -310,7 +334,12 @@ public class InterfaceMain extends javax.swing.JFrame {
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         Ranking r = new Ranking();
-        r.resetRanking();
+        try {
+            r.resetRanking();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Um erro aconteceu", "Erro", WIDTH);
+            System.out.println(ex);
+        }
         txtMainAtualizarMouseClicked(null);
     }//GEN-LAST:event_jLabel4MouseClicked
 
