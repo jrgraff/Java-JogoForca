@@ -12,57 +12,67 @@ public class Ranking {
     public String getRanking(int classificacao)
     {
         try{
-            FileReader arquivoR = new FileReader("src/jogoforca/ranking");
-            BufferedReader fileR = new BufferedReader(arquivoR);
+            FileReader arquivo = new FileReader("src/jogoforca/ranking");
+            BufferedReader fileIn = new BufferedReader(arquivo);
      
             ArrayList<String> ranking = new ArrayList<>();
             String linha;
             
-            while((linha = fileR.readLine()) != null){
+            while((linha = fileIn.readLine()) != null){
                 if(linha.length() > 0){
                     ranking.add(linha);
                 }
             }
-            fileR.close();
-            return(classificacao + ". " + ranking.get(classificacao - 1));
+            fileIn.close();
+            return(ranking.get(classificacao - 1));
         } catch(Exception e){
             return("null");
         }
     }
     public void resetRanking() throws IOException
     {
-        FileWriter arquivoW = new FileWriter("src/jogoforca/ranking");
-        BufferedWriter fileW = new BufferedWriter(arquivoW);
+        FileWriter arquivo = new FileWriter("src/jogoforca/ranking");
+        BufferedWriter fileIn = new BufferedWriter(arquivo);
             
-        fileW.write("");
+        fileIn.write("");
+        fileIn.close();
     }
 
-    public void atualizaRanking(Jogo j) throws IOException{          
-        FileWriter arquivoW = new FileWriter("src/jogoforca/ranking", true);
-        BufferedWriter fileW = new BufferedWriter(arquivoW);
-        
-        Jogo jogo = j;
-        String[] parts;
-        ArrayList<String> ranking = new ArrayList<>();
-        int aux, i;
-        
-        for(i = 1; i < 6; i++){
-            ranking.add(getRanking(i));
-        }
-        
-        i = 0;
-        for(String s : ranking){
-            if(ranking.get(i) != "null"){
-                parts = ranking.get(i).split(": ");
-                if(Integer.parseInt(parts[1]) < j.getPontuacao()){
-                
-                }
-            } else{
-                
-                break;
+    public void atualizaRanking(Jogo j) throws IOException{
+        try{
+            FileWriter arquivo = new FileWriter("src/jogoforca/ranking", true);
+            BufferedWriter fileIn = new BufferedWriter(arquivo);
+
+            ArrayList<String> ranking = new ArrayList<>();
+            Jogo jogo = j;
+
+            String[] parts;
+            int i;
+
+            for(i = 1; i < 6; i++){
+                ranking.add(getRanking(i));
             }
+            
+            for(i = 0; i < 5; i++){
+                if(!ranking.get(i).contains("null")){
+                    parts = ranking.get(i).split(": ");
+                    if(j.getPontuacao() > Integer.parseInt(parts[1])){
+                        ranking.add(i, j.getJogador() + ": " + j.getPontuacao());
+                        break;
+                    }
+                } else{
+                    ranking.add(i, j.getJogador() + ": " + j.getPontuacao());
+                    break;
+                }
+            }
+            System.out.println(ranking);
+            
+            resetRanking();
+            for(i = 0; i < 5; i++)
+                fileIn.write(ranking.get(i) + "\n");
+            fileIn.close();
+        } catch(Exception e){
+            System.out.print(e);
         }
-        
-        System.out.print(ranking);
     }
 }
